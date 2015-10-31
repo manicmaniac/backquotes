@@ -88,7 +88,7 @@ def preprocess(filename, readline):
 
 @contextlib.contextmanager
 def _append_to_python_path(path):
-    current_python_path = os.getenv('PYTHONPATH')
+    current_python_path = os.getenv('PYTHONPATH', '')
     if current_python_path:
         os.environ['PYTHONPATH'] = ':'.join((current_python_path, path))
     else:
