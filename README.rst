@@ -1,6 +1,9 @@
 backquotes
 ==========
 
+.. image:: https://travis-ci.org/manicmaniac/backquotes.svg?branch=master
+    :target: https://travis-ci.org/manicmaniac/backquotes
+
 Introduction
 ------------
 
