@@ -16,7 +16,7 @@ import warnings
 
 
 __all__ = ['shell', 'preprocess']
-__version__ = '0.0.0'
+__version__ = '0.0.1'
 
 
 _source_encoding_re = re.compile(r'coding[:=]\s*([-\w.]+)')
