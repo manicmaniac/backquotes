@@ -45,10 +45,7 @@ def preprocess(filename, readline):
     inside_backquotes = False
     encoding = _detect_encoding(filename)
     quote_start = 0
-    try:
-        ENCODING = tokenize.ENCODING
-    except AttributeError:
-        ENCODING = None
+    ENCODING = getattr(tokenize, 'ENCODING', None)
     for token in tokenize.generate_tokens(readline):
         type, string, (srow, scol), (erow, ecol), line = token
         if type is ENCODING:
