@@ -165,7 +165,7 @@ def _main(argv=sys.argv[1:]):
         infile = open(args.pop(0), 'r')  # not 'rb'
     except IndexError:
         infile = sys.stdin
-    with infile:
+    with contextlib.closing(infile):
         preprocessed_source = preprocess(infile.name, infile.readline)
     if opts.execute:
         with tempfile.NamedTemporaryFile(mode='w+b') as f:
