@@ -149,4 +149,18 @@ Install
 
 .. code:: sh
 
+    pip install backquotes
+
+or
+
+.. code:: sh
+
+    git clone https://github.com/manicmaniac/backquotes.git
+    cd backquotes
     python setup.py install
+
+or
+
+.. code:: sh
+
+    wget https://raw.githubusercontent.com/manicmaniac/backquotes/master/backquotes.py
