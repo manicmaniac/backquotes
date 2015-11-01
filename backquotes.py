@@ -51,7 +51,7 @@ def preprocess(filename, readline):
         type, string, (srow, scol), (erow, ecol), line = token
         if type is ENCODING:
             encoding = string
-        elif string == u'`':
+        elif string == '`':
             if inside_backquotes:
                 # print(`ls`.splitlines())
                 #          ^
@@ -61,17 +61,17 @@ def preprocess(filename, readline):
                     quoted_string = quoted_string[1:-1]
                 tokens.extend([
                     (tokenize.STRING, _triple_quote(quoted_string)),
-                    (tokenize.OP, u')'),
+                    (tokenize.OP, ')'),
                 ])
             else:
                 # print(`ls`.splitlines())
                 #       ^
                 quote_start = ecol
                 tokens.extend([
-                    (tokenize.NAME, u'backquotes'),
-                    (tokenize.OP, u'.'),
-                    (tokenize.NAME, u'shell'),
-                    (tokenize.OP, u'('),
+                    (tokenize.NAME, 'backquotes'),
+                    (tokenize.OP, '.'),
+                    (tokenize.NAME, 'shell'),
+                    (tokenize.OP, '('),
                 ])
             inside_backquotes ^= True
         else:
@@ -84,7 +84,7 @@ def preprocess(filename, readline):
                 # print(`ls`.splitlines())
                 # ^^^^^^    ^^^^^^^^^^^^^^
                 tokens.append((type, string))
-    return tokenize.untokenize(tokens).encode(encoding)
+    return tokenize.untokenize(tokens)
 
 
 @contextlib.contextmanager
@@ -169,17 +169,14 @@ def _main(argv=sys.argv[1:]):
     with contextlib.closing(infile):
         preprocessed_source = preprocess(infile.name, infile.readline)
     if opts.execute:
-        with tempfile.NamedTemporaryFile(mode='w+b') as f:
+        with tempfile.NamedTemporaryFile(mode='w+') as f:
             f.write(preprocessed_source)
             f.seek(0)
             with _append_to_python_path(os.path.dirname(infile.name)):
                 return_code = subprocess.call([sys.executable, f.name] + args)
         sys.exit(return_code)
     else:
-        try:
-            sys.stdout.buffer.write(preprocessed_source)
-        except AttributeError:
-            sys.stdout.write(preprocessed_source)
+        sys.stdout.write(preprocessed_source)
 
 
 if __name__ == '__main__':

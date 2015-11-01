@@ -31,7 +31,7 @@ class TestBackquotes(unittest.TestCase):
         expected = textwrap.dedent("""
         spam ='spam'
         print (backquotes .shell (r'''printf $spam | tr [a-z] [A-Z]'''))
-        """).encode('ascii')
+        """)
         with tempfile.NamedTemporaryFile('w+') as f:
             f.write(source)
             f.seek(0)
