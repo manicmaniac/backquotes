@@ -83,6 +83,10 @@ class TestPipe(ExampleTestCase):
     expected = b'SPAM\n'
 
 
+class TestUnicode(ExampleTestCase):
+    expected = u'スパム\n'.encode('utf-8')
+
+
 class TestVariables(ExampleTestCase):
     expected = b'SPAM\n'
 
