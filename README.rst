@@ -141,8 +141,8 @@ and print to stdout.
 Restrictions
 ------------
 
-``backquotes`` does not work in Python REPL.
-Import it in REPL causes warnings.
+- ``backquotes`` does not work in Python REPL.  Import it in REPL causes warnings.
+- a module which imports ``backquotes`` does not work when it is imported.
 
 Install
 -------
