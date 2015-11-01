@@ -3,11 +3,9 @@
 
 import contextlib
 import inspect
-import linecache
 import locale
 import optparse
 import os
-import re
 import string
 import subprocess
 import sys
@@ -18,9 +16,6 @@ import warnings
 
 __all__ = ['shell', 'preprocess']
 __version__ = '0.0.1'
-
-
-_source_encoding_re = re.compile(r'coding[:=]\s*([-\w.]+)')
 
 
 def shell(argstring):
@@ -34,7 +29,10 @@ def shell(argstring):
                                stdout=subprocess.PIPE,
                                shell=True)
     out, _err = process.communicate()
-    return out.decode(locale.getpreferredencoding())
+    if sys.version_info < (3,):
+        return out
+    else:
+        return out.decode(locale.getpreferredencoding())
 
 
 def preprocess(filename, readline):
@@ -44,14 +42,10 @@ def preprocess(filename, readline):
     """
     tokens = []
     inside_backquotes = False
-    encoding = _detect_encoding(filename)
     quote_start = 0
-    ENCODING = getattr(tokenize, 'ENCODING', None)
     for token in tokenize.generate_tokens(readline):
         type, string, (srow, scol), (erow, ecol), line = token
-        if type is ENCODING:
-            encoding = string
-        elif string == '`':
+        if string == '`':
             if inside_backquotes:
                 # print(`ls`.splitlines())
                 #          ^
@@ -96,20 +90,6 @@ def _append_to_python_path(path):
         os.environ['PYTHONPATH'] = path
     yield
     os.environ['PYTHONPATH'] = current_python_path
-
-
-def _detect_encoding(filename):
-    r"""Detect declared encoding of Python source code.
-
-    If encoding is not declared, returns the system default encoding.
-    """
-    for lineno in (1, 2):
-        line = linecache.getline(filename, lineno)
-        try:
-            return _source_encoding_re.search(line).group(1)
-        except AttributeError:
-            pass
-    return sys.getdefaultencoding()
 
 
 def _detect_environment(frame):
