@@ -131,6 +131,7 @@ def _triple_quote(s):
 def _main(argv=sys.argv[1:]):
     r"""Main entry point of this script.
     """
+    global __version__
     usage = u'Usage: %prog -m backquotes [options] [FILE] [ARG, ...]'
     prog = os.path.basename(sys.executable)
     parser = optparse.OptionParser(usage=usage, version=__version__, prog=prog)
