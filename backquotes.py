@@ -4,6 +4,7 @@
 import contextlib
 import inspect
 import linecache
+import locale
 import optparse
 import os
 import re
@@ -33,7 +34,7 @@ def shell(argstring):
                                stdout=subprocess.PIPE,
                                shell=True)
     out, _err = process.communicate()
-    return out.decode(sys.getdefaultencoding())
+    return out.decode(locale.getpreferredencoding())
 
 
 def preprocess(filename, readline):
