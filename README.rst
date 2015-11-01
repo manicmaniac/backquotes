@@ -4,6 +4,9 @@ backquotes
 .. image:: https://img.shields.io/travis/manicmaniac/backquotes/master.svg
     :target: https://travis-ci.org/manicmaniac/backquotes
 
+.. image:: https://img.shields.io/codeclimate/github/manicmaniac/backquotes.svg
+    :target: https://codeclimate.com/github/manicmaniac/backquotes
+
 .. image:: https://img.shields.io/pypi/v/backquotes.svg
     :target: https://pypi.python.org/pypi/backquotes/
 
