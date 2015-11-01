@@ -1,8 +1,14 @@
 backquotes
 ==========
 
-.. image:: https://travis-ci.org/manicmaniac/backquotes.svg?branch=master
+.. image:: https://img.shields.io/travis/manicmaniac/backquotes/master.svg
     :target: https://travis-ci.org/manicmaniac/backquotes
+
+.. image:: https://img.shields.io/pypi/v/backquotes.svg
+    :target: https://pypi.python.org/pypi/backquotes/
+
+.. image:: https://img.shields.io/pypi/pyversions/backquotes.svg
+    :target: https://pypi.python.org/pypi/backquotes/
 
 Introduction
 ------------
