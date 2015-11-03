@@ -8,7 +8,10 @@ import os
 import tempfile
 import textwrap
 import unittest
-
+try:
+    from test.test_support import captured_stdout
+except ImportError:
+    from test.support import captured_stdout
 import backquotes
 
 
@@ -21,7 +24,7 @@ class TestBackquotes(unittest.TestCase):
         self.assertTrue(version)
 
     def test_shell(self):
-        spam = 'spam'
+        spam = 'spam'  # noqa
         result = backquotes.shell('printf $spam | tr [a-z] [A-Z]')
         self.assertEqual(result, 'SPAM')
 
@@ -61,3 +64,21 @@ class TestBackquotes(unittest.TestCase):
         result = backquotes._triple_quote('spam')
         expected = "r'''spam'''"
         self.assertEqual(result, expected)
+
+    def test__main_help(self):
+        with captured_stdout() as s:
+            self.assertRaises(SystemExit, backquotes._main, ['-h'])
+            self.assertIn('Usage:', s.getvalue())
+            self.assertRaises(SystemExit, backquotes._main, ['--help'])
+            self.assertIn('Usage:', s.getvalue())
+
+    def test__main_version(self):
+        with captured_stdout() as s:
+            self.assertRaises(SystemExit, backquotes._main, ['--version'])
+            self.assertEqual(backquotes.__version__ + '\n', s.getvalue())
+
+    def assertIn(self, member, container, msg=None):
+        try:
+            super(TestBackquotes, self).assertIn(member, container, msg)
+        except AttributeError:
+            self.assertTrue(member in container, msg)

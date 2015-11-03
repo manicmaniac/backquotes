@@ -160,6 +160,7 @@ def _main(argv=sys.argv[1:]):
         sys.exit(return_code)
     else:
         sys.stdout.write(preprocessed_source)
+        sys.exit()
 
 
 if __name__ == '__main__':
