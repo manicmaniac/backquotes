@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-
 from __future__ import unicode_literals
+from __future__ import with_statement
 
 import contextlib
 import imp
@@ -84,8 +84,7 @@ class TestPipe(ExampleTestCase):
 
 
 class TestUnicode(ExampleTestCase):
-    expected = u'スパム\n'.encode('utf-8')
-
+    expected = b'\xe3\x82\xb9\xe3\x83\x91\xe3\x83\xa0\n'
 
 class TestVariables(ExampleTestCase):
     expected = b'SPAM\n'

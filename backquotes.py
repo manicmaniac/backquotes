@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:ascii -*-
 
+from __future__ import with_statement
+
 import contextlib
 import inspect
 import locale
@@ -132,7 +134,7 @@ def _main(argv=sys.argv[1:]):
     r"""Main entry point of this script.
     """
     global __version__
-    usage = u'Usage: %prog -m backquotes [options] [FILE] [ARG, ...]'
+    usage = 'Usage: %prog -m backquotes [options] [FILE] [ARG, ...]'
     prog = os.path.basename(sys.executable)
     parser = optparse.OptionParser(usage=usage, version=__version__, prog=prog)
     parser.add_option(
@@ -168,10 +170,10 @@ else:
         frame = frame.f_back
     environment = _detect_environment(frame)
     if environment == ('redirect', 'repr'):
-        warnings.warn(u"backquotes doesn't work on REPL.")
+        warnings.warn("backquotes doesn't work on REPL.")
     elif environment == 'module':
         warnings.warn(
-            u"backquotes doesn't work when imported by another script")
+            "backquotes doesn't work when imported by another script")
     elif sys.version_info < (3,):
         with open(frame.f_code.co_filename, 'rb') as f:
             source = preprocess(f.name, f.readline)
