@@ -17,7 +17,7 @@ import warnings
 
 
 __all__ = ['shell', 'preprocess']
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 
 def shell(argstring):
