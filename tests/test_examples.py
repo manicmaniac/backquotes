@@ -62,7 +62,7 @@ class ExampleTestCase(unittest.TestCase):
     @property
     def fixture(self):
         if self.__class__ is not ExampleTestCase:
-            file, pathname, description = imp.find_module(self.name)
+            file, pathname, description = imp.find_module(self.name, [os.path.dirname(__file__)])
             with contextlib.closing(file):
                 return pathname
 
