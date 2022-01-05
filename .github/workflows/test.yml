@@ -1,0 +1,31 @@
+name: Test
+on:
+- push
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - python-version: '2.6'
+          tox-env: py26
+        - python-version: '2.7'
+          tox-env: py27
+        - python-version: '3.2'
+          tox-env: py32
+        - python-version: '3.3'
+          tox-env: py33
+        - python-version: '3.4'
+          tox-env: py34
+        - python-version: '2.7'
+          tox-env: coveralls
+        - python-version: '2.7'
+          tox-env: flake8
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - run: pip install tox
+    - run: tox -e ${{ matrix.tox-env }}
