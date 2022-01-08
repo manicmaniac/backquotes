@@ -21,13 +21,13 @@ Introduction
 
 ``backquotes`` brings (Perl / Ruby)'s shell invocation syntax to Python.
 
-``backquotes`` is experimental module by now,
+Since ``backquotes`` is an experimental module,
 using it in a serious program is not recommended.
 
 Syntax
 ------
 
-Firstly, remember to import ``backquotes`` module.
+Firstly, do not forget to import ``backquotes`` module.
 
 .. code:: python
 
@@ -79,7 +79,7 @@ Runtime-preprocessing
 ^^^^^^^^^^^^^^^^^^^^^
 
 You can use runtime-preprocessing only in Python 2.
-This works transparently when you import ``backquotes``.
+This works transparently whenever you import ``backquotes``.
 
 .. warning::
 
@@ -92,7 +92,7 @@ This works transparently when you import ``backquotes``.
     import backquotes
     print(`date`)
 
-Save as ``date.py``, and run it as usual.
+Save the above code as ``date.py``, and run it as usual.
 
 .. code:: sh
 
@@ -122,7 +122,7 @@ Run ``python`` with ``-m backquotes`` option to invoke ``backquotes`` as a scrip
 
     python -m backquotes date.py
 
-You can pass arguments to the script.
+You can pass arguments to the script like this.
 
 .. code:: sh
 
@@ -132,12 +132,12 @@ Preprocess Python code
 ^^^^^^^^^^^^^^^^^^^^^^
 
 Run ``python`` with ``-m backquotes -E`` option to only preprocess the given source file
-and print to stdout.
+and print the result to stdout.
 
 .. warning::
 
     Preprocessed python code is almost the same as the original code semantically,
-    but whitespaces are moved by the preprocessor.
+    but whitespaces may be moved by the preprocessor.
 
 .. note::
 
@@ -153,8 +153,8 @@ and print to stdout.
 Restrictions
 ------------
 
-- ``backquotes`` does not work in Python REPL.  Import it in REPL causes warnings.
-- a module which imports ``backquotes`` does not work when it is imported.
+- ``backquotes`` does not work in Python REPL.  Importing it in REPL causes warnings.
+- A module which imports ``backquotes`` does not work when it is imported by another module.
 
 Install
 -------
