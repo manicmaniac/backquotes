@@ -27,3 +27,5 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - run: pip install tox
     - run: tox -e ${{ matrix.tox-env }}
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
