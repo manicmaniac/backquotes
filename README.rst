@@ -1,10 +1,10 @@
 backquotes
 ==========
 
-.. image:: https://img.shields.io/travis/manicmaniac/backquotes/master.svg
-    :target: https://travis-ci.org/manicmaniac/backquotes
+.. image:: https://img.shields.io/github/checks-status/manicmaniac/backquotes/master.svg
+    :target: https://github.com/manicmaniac/backquotes/actions?query=branch%3Amaster
 
-.. image:: https://img.shields.io/codeclimate/github/manicmaniac/backquotes.svg
+.. image:: https://img.shields.io/codeclimate/maintainability/manicmaniac/backquotes.svg
     :target: https://codeclimate.com/github/manicmaniac/backquotes
 
 .. image:: https://img.shields.io/coveralls/manicmaniac/backquotes/master.svg
