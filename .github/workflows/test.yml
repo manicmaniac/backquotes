@@ -8,16 +8,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - python-version: '2.6'
-          tox-env: py26
         - python-version: '2.7'
           tox-env: py27
-        - python-version: '3.2'
-          tox-env: py32
-        - python-version: '3.3'
-          tox-env: py33
-        - python-version: '3.4'
-          tox-env: py34
+        - python-version: '3.7'
+          tox-env: py37
+        - python-version: '3.8'
+          tox-env: py38
+        - python-version: '3.9'
+          tox-env: py39
         - python-version: '2.7'
           tox-env: coveralls
         - python-version: '2.7'
