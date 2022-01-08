@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:ascii -*-
 
-from __future__ import with_statement
-
 import contextlib
 import inspect
 import locale
