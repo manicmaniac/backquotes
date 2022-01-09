@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
 from __future__ import unicode_literals
@@ -87,7 +86,3 @@ class TestUnicode(ExampleTestCase):
 
 class TestVariables(ExampleTestCase):
     expected = b'SPAM\n'
-
-
-if __name__ == '__main__':
-    unittest.main()
