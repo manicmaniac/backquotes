@@ -88,8 +88,8 @@ class TestBackquotes(unittest.TestCase):
                                        stdout=subprocess.PIPE,
                                        stderr=subprocess.PIPE)
         out, err = process.communicate()
-        self.assertEqual(out, '')
-        self.assertIn('UserWarning:', err)
+        self.assertEqual(out, b'')
+        self.assertIn(b'UserWarning:', err)
 
     def assertIn(self, member, container, msg=None):
         try:
