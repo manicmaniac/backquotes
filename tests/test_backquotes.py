@@ -5,6 +5,8 @@ from __future__ import with_statement
 
 import distutils.version
 import os
+import subprocess
+import sys
 import tempfile
 import textwrap
 import unittest
@@ -76,6 +78,18 @@ class TestBackquotes(unittest.TestCase):
         with captured_stdout() as s:
             self.assertRaises(SystemExit, backquotes._main, ['--version'])
             self.assertEqual(backquotes.__version__ + '\n', s.getvalue())
+
+    def test_import_in_repl(self):
+        with tempfile.TemporaryFile('w+') as f:
+            f.write('import backquotes\n')
+            f.seek(0)
+            process = subprocess.Popen([sys.executable],
+                                       stdin=f,
+                                       stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE)
+        out, err = process.communicate()
+        self.assertEqual(out, '')
+        self.assertIn('UserWarning:', err)
 
     def assertIn(self, member, container, msg=None):
         try:
