@@ -97,7 +97,7 @@ def _detect_environment(frame):
     """
     if frame.f_code.co_filename == '<stdin>':
         if frame.f_locals.get('__file__') is None:
-            return 'repr'
+            return 'repl'
         else:
             return 'redirect'
     outer_frame = frame.f_back
@@ -168,7 +168,7 @@ else:
     while frame.f_code.co_filename.startswith('<frozen importlib'):
         frame = frame.f_back
     environment = _detect_environment(frame)
-    if environment == ('redirect', 'repr'):
+    if environment in ('redirect', 'repl'):
         warnings.warn("backquotes doesn't work on REPL.")
     elif environment == 'module':
         warnings.warn(
