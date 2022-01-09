@@ -1,8 +1,6 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
 from __future__ import unicode_literals
-from __future__ import with_statement
 
 import contextlib
 import imp
@@ -88,7 +86,3 @@ class TestUnicode(ExampleTestCase):
 
 class TestVariables(ExampleTestCase):
     expected = b'SPAM\n'
-
-
-if __name__ == '__main__':
-    unittest.main()
