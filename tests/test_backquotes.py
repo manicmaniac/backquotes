@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from __future__ import with_statement
-
 import distutils.version
 import os
 import subprocess
