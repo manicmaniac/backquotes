@@ -11,9 +11,13 @@ import tempfile
 import textwrap
 import unittest
 try:
-    from test.test_support import captured_stdout
+    from test.test_support import EnvironmentVarGuard, captured_stdout
 except ImportError:
-    from test.support import captured_stdout
+    from test.support import EnvironmentVarGuard, captured_stdout
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import MagicMock
 import backquotes
 
 
@@ -45,12 +49,41 @@ class TestBackquotes(unittest.TestCase):
             result = backquotes.preprocess(f.name, f.readline)
         self.assertEqual(result, expected)
 
-    def test__append_to_python_path(self):
-        def predicate():
-            return os.getenv('PYTHONPATH').endswith('spam')
-        with backquotes._append_to_python_path('spam'):
-            self.assertTrue(predicate())
-        self.assertFalse(predicate())
+    def test__append_to_python_path_when_python_path_is_not_set(self):
+        with EnvironmentVarGuard() as env:
+            del env['PYTHONPATH']
+            with backquotes._append_to_python_path('spam'):
+                self.assertEqual(env['PYTHONPATH'], 'spam')
+
+    def test__append_to_python_path_when_python_path_is_set(self):
+        with EnvironmentVarGuard() as env:
+            env['PYTHONPATH'] = 'spam'
+            with backquotes._append_to_python_path('ham'):
+                self.assertEqual(env['PYTHONPATH'], 'spam:ham')
+
+    def test__detect_environment_when_filename_is_stdin_and_file_does_not_exist(self):
+        frame = MagicMock()
+        frame.f_code.co_filename = '<stdin>'
+        frame.f_locals.get.return_value = None
+        self.assertEqual(backquotes._detect_environment(frame), 'repl')
+
+    def test__detect_environment_with_filename_is_stdin_and_file_exists(self):
+        frame = MagicMock()
+        frame.f_code.co_filename = '<stdin>'
+        frame.f_locals = {'__file__': 'spam'}
+        self.assertEqual(backquotes._detect_environment(frame), 'redirect')
+
+    def test__detect_environment_with_filename_is_not_stdin_and_name_is_not_main(self):
+        frame = MagicMock()
+        frame.f_code.co_filename = 'spam'
+        frame.f_back.f_locals = {'__name__': 'ham'}
+        self.assertEqual(backquotes._detect_environment(frame), 'module')
+
+    def test__detect_environment_with_filename_is_not_stdin_and_name_is_main(self):
+        frame = MagicMock()
+        frame.f_code.co_filename = 'spam'
+        frame.f_back.f_locals = {'__name__': '__main__'}
+        self.assertEqual(backquotes._detect_environment(frame), 'script')
 
     def test__exec(self):
         backquotes._exec('self.test__exec_result = True', globals(), locals())
