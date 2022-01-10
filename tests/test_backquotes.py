@@ -12,9 +12,9 @@ try:
 except ImportError:
     from test.support import EnvironmentVarGuard, captured_stdout
 try:
-    from unittest.mock import MagicMock
+    from unittest.mock import MagicMock, patch
 except ImportError:
-    from mock import MagicMock
+    from mock import MagicMock, patch
 import backquotes
 
 
@@ -108,6 +108,13 @@ class TestBackquotes(unittest.TestCase):
         with captured_stdout() as s:
             self.assertRaises(SystemExit, backquotes._main, ['--version'])
             self.assertEqual(backquotes.__version__ + '\n', s.getvalue())
+
+    def test__main_with_stdin(self):
+        with tempfile.NamedTemporaryFile('w+') as f:
+            f.write('import backquotes\n`echo spam`')
+            f.seek(0)
+            with patch('sys.stdin', new=f):
+                self.assertEqual(backquotes._main([]), 0)
 
     def test_import_in_repl(self):
         with tempfile.TemporaryFile('w+') as f:
