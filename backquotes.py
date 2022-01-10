@@ -153,11 +153,10 @@ def _main(argv=sys.argv[1:]):
             f.write(preprocessed_source)
             f.seek(0)
             with _append_to_python_path(os.path.dirname(infile.name)):
-                return_code = subprocess.call([sys.executable, f.name] + args)
-        sys.exit(return_code)
+                return subprocess.call([sys.executable, f.name] + args)
     else:
         sys.stdout.write(preprocessed_source)
-        sys.exit()
+        return 0
 
 
 if __name__ == '__main__':
