@@ -65,7 +65,7 @@ use Perl-like variables substitution.
     spam = 'spam'
     print(`echo $spam`)
 
-``$$`` is substituted to a literal ``$``.
+``$$`` is replaced with a literal ``$``.
 
 .. code:: python
 
