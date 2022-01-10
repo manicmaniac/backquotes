@@ -30,6 +30,7 @@ jobs:
     - run: tox -e ${{ matrix.tox-env }}
     - name: Format coverage
       run: |
+        coverage combine
         coverage xml
         ./cc-test-reporter format-coverage --input-type coverage.py --output 'coverage.${{ matrix.python-version }}.xml'
     - uses: actions/upload-artifact@v2
